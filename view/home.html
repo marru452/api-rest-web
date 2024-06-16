@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR - Rest Api's</title>
+    <!-- Bootstrap CSS -->
+    <link href="render/bootstrap5/css/bootstrap.min.css">
+    <style>
+        body, html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Prevents page scrolling */
+  cursor: none; /* Hides the default cursor */
+}
+.background {
+  background-image: url('https://c.top4top.io/p_3076rojkn1.jpg');
+  height: 100vh; /* Ajustamos para ocupar toda la ventana */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden; /* Añadido para ocultar el desbordamiento */
+}
+.btn-custom {
+  padding: 15px 30px;
+  font-size: 20px;
+  color: white;
+  background: rgba(0, 51, 102, 0.8);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.btn-custom:hover {
+  background: rgba(0, 51, 102, 1);
+}
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0, 51, 102, 0.8);
+  border-radius: 50%;
+  position: fixed; /* Cambiado a fixed */
+  pointer-events: none;
+  transition: transform 0.1s ease-out;
+  z-index: 9999; /* Asegura que esté por encima de todo */
+}
+    </style>
+</head>
+<body ng-controller="myController">
+    <div class="background">
+        <button id="docButton" class="btn btn-custom" ng-mouseover="changeCursor(true)" ng-mouseout="changeCursor(false)">Doc</button>
+        <!-- Eliminado el div del cursor aquí -->
+    </div>
+    <!-- Añadido el div del cursor fuera del contenedor de fondo -->
+    <div class="custom-cursor" id="customCursor"></div>
+
+    <!-- Bootstrap JS (including Popper) -->
+    <script src="render/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <script src="render/angular/js/angular.min.js"></script>
+    <!-- AngularJS Controller -->
+    <script>
+        angular.module('myApp', [])
+            .controller('myController', ['$scope', '$window', function($scope, $window) {
+                $scope.changeCursor = function(isCustom) {
+                    var cursor = document.getElementById('customCursor');
+                    cursor.style.display = isCustom ? 'block' : 'none'; // Mostrar solo cuando el cursor personalizado está activo
+                    document.body.style.cursor = isCustom ? 'none' : 'auto'; // Ocultar el cursor predeterminado solo cuando el cursor personalizado está activo
+                };
+
+                $scope.redirectToApi = function() {
+                    $window.location.href = '/api/'; // Redirige al index.html dentro de /api
+                };
+
+                document.addEventListener('mousemove', function(e) {
+                    var cursor = document.getElementById('customCursor');
+                    cursor.style.left = e.clientX + 'px';
+                    cursor.style.top = e.clientY + 'px';
+                });
+            }]);
+    </script>
+</body>
+</html>
+
