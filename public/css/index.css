@@ -15,7 +15,7 @@ body {
   background-color: #1c2538;
   color: #cfd8dc;
   padding-top: 60px;
-  transition: width 0.3s ease;
+  transition: width 0.3s;
   z-index: 1;
   overflow-y: auto;
 }
@@ -76,7 +76,7 @@ body {
 }
 
 .main-content {
-  margin-left: 80px; /* Ancho por defecto, colapsado */
+  margin-left: 0; /* Ancho por defecto, colapsado */
   transition: margin-left 0.3s ease;
 }
 
@@ -151,4 +151,24 @@ body {
   color: #cfd8dc;
   text-align: center;
   padding: 10px 0;
+}
+
+.nav-item ul {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease; /* Transición suave de altura */
+}
+.nav-item ul.expanded {
+  max-height: 1000px; /* Altura máxima cuando el submenú está expandido */
+}
+.nav-link .nav-link-text {
+  display: none;
+  margin-left: 10px;
+}
+.nav-item:hover .nav-link-text {
+  display: inline; /* Mostrar texto cuando se pasa el ratón sobre el ícono */
+}
+
+.sidebar.expanded .nav-link .nav-link-text {
+  display: inline; /* Mostrar texto siempre cuando el sidebar está expandido */
 }

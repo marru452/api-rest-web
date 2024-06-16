@@ -6,6 +6,55 @@
   <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"> <!-- Boxicons para íconos -->
   <link href="render/bootstrap5/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="css/index.css"/>">
+  <style>
+    /* Estilos para los boxes */
+    .card {
+      background-color: #6c757d; /* Color de fondo de las cajas */
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      color: #fff; /* Color del texto */
+    }
+    
+    .card-body {
+      padding: 20px;
+    }
+    
+    .icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px; /* Espacio entre el icono y el texto */
+    }
+    
+    .icon i {
+      font-size: 24px; /* Tamaño más pequeño para el ícono */
+      color: #ff69b4; /* Color rosa para el ícono */
+      margin-right: 10px; /* Espacio a la derecha del ícono */
+    }
+    
+    .icon-text {
+      font-size: 14px; /* Tamaño del texto dentro del span */
+      color: rgba(255, 255, 255, 0.7); /* Color gris con poco de blanco para el texto */
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    h3 {
+      font-size: 28px; /* Tamaño del número */
+      font-weight: bold;
+      margin-bottom: 8px; /* Espacio entre el número y el párrafo */
+    }
+    
+    p {
+      font-size: 14px; /* Tamaño del párrafo */
+      opacity: 0.8;
+      margin-bottom: 0; /* Elimina el espacio debajo del párrafo */
+    }
+  </style>  
 </head>
 <body ng-controller="DashboardController">
 
@@ -33,10 +82,27 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="#" ng-click="toggleAnimeMenu()">
           <i class="bx bx-line-chart"></i>
           <span class="nav-link-text">Anime</span>
         </a>
+        <ul class="nav flex-column ms-3" ng-if="isSidebarExpanded" ng-class="{ 'collapsed': !isAnimeMenuVisible, 'expanded': isAnimeMenuVisible }">
+          <li class="nav-item">
+            <a class="nav-link" href="api/anime/waifu?apikey=Limoncio" target="_blank">Waifu</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="api/anime/loli?apikey=Limoncio" target="_blank">Loli</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="api/anime/neko?apikey=Limoncio" target="_blank">Neko</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="api/anime/megumin?apikey=Limoncio" target="_blank">Megumin</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="api/anime/Shinobu?apikey=Limoncio" target="_blank">Shinobu</a>
+          </li>
+        </ul>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">
@@ -53,14 +119,32 @@
     </ul>
   </div>
 
-  <!-- Contenido principal -->
   <div class="main-content" id="mainContent" ng-class="{ 'expanded': isSidebarExpanded }">
     <div class="container mt-5 pt-5">
-      <h1>Main Content Area</h1>
-      <p>This is the main content area.</p>
+      <div class="row">
+        <!-- Primer Box -->
+        <div class="col-lg-3 col-md-6">
+          <div class="card">
+            <div class="card-body d-flex flex-column align-items-center">
+              <div class="icon mb-3">
+                <i class="bx bx-line-chart" style="font-size: 24px;"></i> <!-- Tamaño más pequeño para el ícono -->
+                <span class="icon-text">Analytics Overview</span>
+              </div>
+              <div class="text-center">
+                <h3 class="mb-1">1350</h3>
+                <p>Visitors this month</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Otros boxes -->
+      </div>
     </div>
   </div>
-
+  
+  
+  
+  
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -76,13 +160,23 @@
     app.controller('DashboardController', function($scope) {
       $scope.isSidebarExpanded = false;
       $scope.isSearchVisible = false;
+      $scope.isAnimeMenuVisible = false;
 
       $scope.toggleSidebar = function() {
         $scope.isSidebarExpanded = !$scope.isSidebarExpanded;
+        if (!$scope.isSidebarExpanded) {
+          $scope.isAnimeMenuVisible = false;
+        }
       };
 
       $scope.toggleSearch = function() {
         $scope.isSearchVisible = !$scope.isSearchVisible;
+      };
+
+      $scope.toggleAnimeMenu = function() {
+        if ($scope.isSidebarExpanded) {
+          $scope.isAnimeMenuVisible = !$scope.isAnimeMenuVisible;
+        }
       };
     });
   </script>
