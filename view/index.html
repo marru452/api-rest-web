@@ -64,12 +64,14 @@
     <button class="btn btn-primary" type="button" ng-click="toggleSidebar()">
       <i class='bx bx-menu-alt-left'></i>
     </button>
-    <div class="search-box d-flex">
-      <button class="btn btn-secondary" ng-click="toggleSearch()">
-        <i class='bx bx-search'></i>
-      </button>
-      <input class="form-control me-2 search-input" type="text" placeholder="Search" ng-class="{ 'show': isSearchVisible }">
-    </div>
+    <form class="form-inline ms-auto">
+      <div class="input-group">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" ng-show="isSearchVisible">
+        <button class="btn btn-secondary" type="button" ng-click="toggleSearch()">
+          <i class='bx bx-search'></i>
+        </button>
+      </div>
+    </form>
   </nav>
 
   <!-- Menú vertical -->
@@ -156,29 +158,29 @@
   <script src="render/angular/js/angular.min.js"></script>
   <script>
     var app = angular.module('adminDashboardApp', []);
-
     app.controller('DashboardController', function($scope) {
-      $scope.isSidebarExpanded = false;
-      $scope.isSearchVisible = false;
+  $scope.isSidebarExpanded = false;
+  $scope.isSearchVisible = false; // Inicialmente oculto
+  $scope.isAnimeMenuVisible = false;
+
+  $scope.toggleSidebar = function() {
+    $scope.isSidebarExpanded = !$scope.isSidebarExpanded;
+    if (!$scope.isSidebarExpanded) {
       $scope.isAnimeMenuVisible = false;
+    }
+  };
 
-      $scope.toggleSidebar = function() {
-        $scope.isSidebarExpanded = !$scope.isSidebarExpanded;
-        if (!$scope.isSidebarExpanded) {
-          $scope.isAnimeMenuVisible = false;
-        }
-      };
+  $scope.toggleSearch = function() {
+    $scope.isSearchVisible = !$scope.isSearchVisible; // Cambia la visibilidad del input de búsqueda
+  };
 
-      $scope.toggleSearch = function() {
-        $scope.isSearchVisible = !$scope.isSearchVisible;
-      };
+  $scope.toggleAnimeMenu = function() {
+    if ($scope.isSidebarExpanded) {
+      $scope.isAnimeMenuVisible = !$scope.isAnimeMenuVisible;
+    }
+  };
+});
 
-      $scope.toggleAnimeMenu = function() {
-        if ($scope.isSidebarExpanded) {
-          $scope.isAnimeMenuVisible = !$scope.isAnimeMenuVisible;
-        }
-      };
-    });
   </script>
 </body>
 </html>

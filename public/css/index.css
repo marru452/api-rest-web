@@ -90,10 +90,19 @@ body {
   padding-left: 0;
 }
 
+.navbar .input-group {
+  position: relative;
+  margin-right: 10px; /* Ajusta según tu diseño */
+}
+
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
   padding: 0.5rem 1rem;
+}
+
+.navbar .form-control[type="search"].ng-show {
+  display: block; /* Mostrar cuando isSearchVisible es true */
 }
 
 .navbar-toggler {
@@ -115,14 +124,7 @@ body {
   margin-left: 10px; /* Ajuste de margen para separación */
 }
 
-.search-input {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 30px;
-}
-
-.search-box.show .search-input {
+.search-box.show {
   display: block;
 }
 
