@@ -60,7 +60,7 @@
 
   <!-- Menú horizontal -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <a class="navbar-brand" href="#">Dashboard</a>
+    <a class="navbar-brand" href="#">hola</a>
     <button class="btn btn-primary" type="button" ng-click="toggleSidebar()">
       <i class='bx bx-menu-alt-left'></i>
     </button>
@@ -75,7 +75,7 @@
   </nav>
 
   <!-- Menú vertical -->
-  <div class="sidebar" ng-class="{ 'expanded': isSidebarExpanded }">
+  <nav class="sidebar" ng-class="{ 'expanded': isSidebarExpanded }">
     <ul class="nav flex-column">
       <li class="nav-item">
         <a class="nav-link active" href="#">
@@ -119,39 +119,36 @@
         </a>
       </li>
     </ul>
-  </div>
+  </nav>
 
-  <div class="main-content" id="mainContent" ng-class="{ 'expanded': isSidebarExpanded }">
-    <div class="container mt-5 pt-5">
-      <div class="row">
+  <main class="main-content" id="mainContent" ng-class="{ 'expanded': isSidebarExpanded }">
+    <article class="container mt-5 pt-5">
+      <header class="row">
         <!-- Primer Box -->
         <div class="col-lg-3 col-md-6">
           <div class="card">
-            <div class="card-body d-flex flex-column align-items-center">
-              <div class="icon mb-3">
+            <ul class="card-body d-flex flex-column align-items-center">
+              <li class="icon mb-3">
                 <i class="bx bx-line-chart" style="font-size: 24px;"></i> <!-- Tamaño más pequeño para el ícono -->
-                <span class="icon-text">Analytics Overview</span>
-              </div>
+                <p class="icon-text"><span>Analytics Overview</span></p>
+              </li>
               <div class="text-center">
                 <h3 class="mb-1">1350</h3>
                 <p>Visitors this month</p>
               </div>
-            </div>
+            </ul>
           </div>
         </div>
         <!-- Otros boxes -->
-      </div>
-    </div>
-  </div>
-  
-  
-  
+      </header>
+    </article>
+  </main>
   
   <!-- Footer -->
   <footer class="footer">
-    <div class="container">
-      <p>&copy; 2021 Company, Inc</p>
-    </div>
+    <small>
+      <p>&copy; 2024 Company, Marru</p>
+    </small>
   </footer>
 
   <script src="render/bootstrap5/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
