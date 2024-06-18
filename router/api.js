@@ -1,5 +1,4 @@
 __path = process.cwd()
-
 const express = require('express');
 var db = require(__path + '/src/db');
 
@@ -14,8 +13,6 @@ var creator = "@Marru";
 var ytdl = require('ytdl-core');
 var ytpl = require('ytpl');
 var Bochi = require('@bochilteam/scraper')
-var secure = require('ssl-express-www');
-var cors = require('cors');
 
 var fetch = require('node-fetch');
 var cheerio = require('cheerio');
@@ -37,101 +34,101 @@ loghandler = {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'masukan parameter apikeys',
+        msg: 'masukan parameter apikeys',
         getApikey: 'Apikey??? Contact Me On WhatsApp'
     },
     notkey: {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'masukan parameter key'
+        msg: 'masukan parameter key'
     },
     noturl: {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'masukan parameter url'
+        msg: 'masukan parameter url'
     },
     notkata: {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'masukan parameter kata'
+        msg: 'masukan parameter kata'
     },
     nottext: {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'masukan parameter text'
+        msg: 'masukan parameter text'
     },
     nottext2: {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'masukan parameter text2'
+        msg: 'masukan parameter text2'
     },
     notnabi: {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'masukan parameter nabi'
+        msg: 'masukan parameter nabi'
     },
     nottext3: {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'masukan parameter text3'
+        msg: 'masukan parameter text3'
     },
     nottheme: {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'masukan parameter theme'
+        msg: 'masukan parameter theme'
     },
     notusername: {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'masukan parameter username'
+        msg: 'masukan parameter username'
     },
     notvalue: {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'masukan parameter value'
+        msg: 'masukan parameter value'
     },
     notheme: {
     	status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'theme tidak tersedia silahkan masukkan texmaker/list atau baca documentasi'
+        msg: 'theme tidak tersedia silahkan masukkan texmaker/list atau baca documentasi'
     },
     invalidKey: {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'Apikey??? Contact Me On WhatsApp'
+        msg: 'Apikey??? Contact Me On WhatsApp'
     },
     invalidlink: {
         status: false,
         creator: `${creator}`,
-        message: 'error, mungkin link anda tidak valid.'
+        msg: 'error, mungkin link anda tidak valid.'
     },
     invalidkata: {
         status: false,
         creator: `${creator}`,
-        message: 'error, mungkin kata tidak ada dalam api.'
+        msg: 'error, mungkin kata tidak ada dalam api.'
     },
     notAddApiKey: {
         status: false,
         creator: `${creator}`,
         code: 406,
-        message: 'masukan parameter status, apikeyInput, email, nomorhp, name, age, country, exp'
+        msg: 'masukan parameter status, apikeyInput, email, nomorhp, name, age, country, exp'
     },
     error: {
         status: false,
         creator: `${creator}`,
-        message: 'mungkin sedang dilakukan perbaikan'
+        msg: '${e}'
     }
 }
 
@@ -176,7 +173,7 @@ var len = 15
                         exp:a.exp,
                     },
                 },
-                message: `jangan lupa follow ${creator}`
+                smg: `jangan lupa follow ${creator}`
             })
         } else {
             json = JSON.stringify({
@@ -289,395 +286,119 @@ var len = 15
                 res.json(loghandler.maintenance);
               }
             } catch (e) {
-              console.error(`Error: ${e.message}`);
-              res.json(loghandler.error);
+              console.error(`Error: ${e.smg}`);
+              res.json(loghandler.error + e);
             }
           });
         ///NSFW END
 
-        // DOWNLOAD // 
-        router.get('/tiktod', async (req, res, next) => {
-            var apikeyInput = req.query.apikey,
-                url = req.query.url
-        
-        
-            if(!apikeyInput) return res.json(loghandler.notparam)
-            if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-             if (!url) return res.json(loghandler.noturl)
-        
-             TikTokScraper.getVideoMeta(url, options)
-                 .then(vid => {
-                     console.log(vid)
-                     res.json({
-                         status: true,
-                         creator: `${creator}`,
-                         videoNoWm: vid
-                     })
-                 })
-                 .catch(e => {
-                     res.json(loghandler.invalidlink)
-                 })
-        })
-        
-        router.get('/tiktod/stalk', async (req, res, next) => {
-            var apikeyInput = req.query.apikey,
-                username = req.query.username
-        
-            if(!apikeyInput) return res.json(loghandler.notparam)
-            if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-            if (!username) return res.json(loghandler.notusername)
-        
-        
-            TikTokScraper.getUserProfileInfo(username)
-                .then(user => {
-                    res.json({
-                        status : true,
-                        creator : `${creator}`,
-                        result : user
-                    })
-                })
-                .catch(e => {
-                     res.json({
-                         status : false,
-                         creator : `${creator}`,
-                         message : "error, mungkin username anda tidak valid"
-                     })
-                 })
-        })
-        
-        router.get('/kisahnabi', async (req, res, next) => {
-            var nabi = req.query.nabi,
-                apikeyInput = req.query.apikey;
-        
-                if (!apikeyInput) return res.json(loghandler.notparam)
-                if (apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-                Searchnabi(nabi)
-                .then(result => {
-                    res.json({
-                        creator: creator,
-                        result
-                    })
-                })
-                .catch(e => {
-                    console.log('Error :', color(e, 'red'))
-                    res.json(loghandler.error)
-                })
-        })
-        
-        router.get('/infogempa', async (req, res, next) => {
-                    var apikeyInput = req.query.apikey
-        
-                if (!apikeyInput) return res.json(loghandler.notparam)
-                if (apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-                Gempa()
-                .then(result => {
-                    res.json({
-                        creator: creator,
-                        result
-                    })
-                })
-                .catch(e => {
-                    console.log('Error :', color(e, 'red'))
-                    res.json(loghandler.error)
-                })
-        })
-        router.get('/fbdown', async (req, res, next) => {
-                var apikeyInput = req.query.apikey,
-                    url = req.query.url
-                    
-            if(!apikeyInput) return res.json(loghandler.notparam)
-            if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-            if (!url) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter url"})
-        
-               fetch(encodeURI(`https://fb-api-zhirrr.vercel.app/?url=${url}`))
-                .then(response => response.json())
-                .then(data => {
-                var result = data;
-                     res.json({
-                         result
-                     })
-                 })
-                 .catch(e => {
-                     res.json(loghandler.error)
-        })
-        })
-        
-        router.get('/wallpaper/cyberspace', async (req, res, next) => {
-                var apikeyInput = req.query.apikey
-                    
-            if(!apikeyInput) return res.json(loghandler.notparam)
-            if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-        
-               fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/My-SQL-Results/main/CyberSpace.json`))
-                .then(response => response.json())
-                .then(data => {
-                var result = data;
-                     res.json({
-                         result
-                     })
-                 })
-                 .catch(e => {
-                     res.json(loghandler.error)
-        })
-        })
-        
-        router.get('/randomquote/muslim', async (req, res, next) => {
-                var apikeyInput = req.query.apikey
-                    
-            if(!apikeyInput) return res.json(loghandler.notparam)
-            if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-        
-               fetch(encodeURI(`https://docs-api-zahirrr.herokuapp.com/api/quote?type=agamis`))
-                .then(response => response.json())
-                .then(data => {
-                var result = data;
-                     res.json({
-                         result
-                     })
-                 })
-                 .catch(e => {
-                     res.json(loghandler.error)
-        })
-        })
-        
-        
-        router.get('/jadwalshalat', async (req, res, next) => {
-                var apikeyInput = req.query.apikey,
-                    kota = req.query.kota
-                    
-            if(!apikeyInput) return res.json(loghandler.notparam)
-            if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-                if(!kota) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter kota"})
-        
-               fetch(encodeURI(`https://raw.githubusercontent.com/Zhirrr/Zhirrr-Database/main/adzan/${kota}/2021/03.json`))
-                .then(response => response.json())
-                .then(data => {
-                var result = data;
-                     res.json({
-                         result
-                     })
-                 })
-                 .catch(e => {
-                     res.json(loghandler.error)
-        })
-        })
-        
-        router.get('/infocuaca', async (req, res, next) => {
-                var apikeyInput = req.query.apikey,
-                provinsi = req.query.provinsi
-                    
-            if(!apikeyInput) return res.json(loghandler.notparam)
-            if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-            if(!provinsi) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter provinsi"})
-               fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/cuaca/${provinsi}`))
-                .then(response => response.json())
-                .then(data => {
-                var result = data;
-                     res.json({
-                         result
-                     })
-                 })
-                 .catch(e => {
-                     res.json(loghandler.error)
-        })
-        })
-        
-        
-        router.get('/infocuaca/bandara', async (req, res, next) => {
-                var apikeyInput = req.query.apikey
-                    
-            if(!apikeyInput) return res.json(loghandler.notparam)
-            if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-               fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/cuaca/bandara`))
-                .then(response => response.json())
-                .then(data => {
-                var result = data;
-                     res.json({
-                         result
-                     })
-                 })
-                 .catch(e => {
-                     res.json(loghandler.error)
-        })
-        })
-        
-        
-        router.get('/infocuaca/dunia', async (req, res, next) => {
-                var apikeyInput = req.query.apikey
-                    
-            if(!apikeyInput) return res.json(loghandler.notparam)
-            if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-               fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/cuaca/dunia`))
-                .then(response => response.json())
-                .then(data => {
-                var result = data;
-                     res.json({
-                         result
-                     })
-                 })
-                 .catch(e => {
-                     res.json(loghandler.error)
-        })
-        })
-        
-        
-        router.get('/infotsunami', async (req, res, next) => {
-                var apikeyInput = req.query.apikey
-                    
-            if(!apikeyInput) return res.json(loghandler.notparam)
-            if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-               fetch(encodeURI(`https://bmkg-api-zahirr.herokuapp.com/api/tsunami`))
-                .then(response => response.json())
-                .then(data => {
-                var result = data;
-                     res.json({
-                         result
-                     })
-                 })
-                 .catch(e => {
-                     res.json(loghandler.error)
-        })
-        })
-
+        // ANIME //
         router.get('/anime/waifu', async (req, res) => {
             const apikeyInput = req.query.apikey;
           
+            try {
             if (!apikeyInput) return res.json(loghandler.notparam);
             if (apikeyInput !== 'Limoncio') return res.json(loghandler.invalidKey);
-          
-            try {
+
               const response = await axios.get('https://api.waifu.pics/sfw/waifu');
               const data = response.data;
           
               if (data.url) {
                 const imageUrl = data.url;
-                const buffer = await getBuffer(imageUrl);
           
-                res.writeHead(200, {
-                  'Content-Type': 'image/jpeg', // You might need to change this to 'image/png' depending on the image type
-                  'Content-Length': buffer.length
-                });
-                res.end(buffer);
-              } else {
-                res.json(loghandler.maintenance);
+                // Respondemos con un objeto JSON con las propiedades solicitadas
+                res.json({ status: true, owners: `${creator}`, url: imageUrl });
               }
-            } catch (e) {
-              console.error(`Error: ${e.message}`);
-              res.json(loghandler.error);
+            } catch  (e) {
+                res.json({ status: true, owners: `${creator}`, smg: `Error: ${e}` });
             }
           });
-
+          
           router.get('/anime/loli', async (req, res) => {
             const apikeyInput = req.query.apikey;
           
+            try {
             if (!apikeyInput) return res.json(loghandler.notparam);
             if (apikeyInput !== 'Limoncio') return res.json(loghandler.invalidKey);
-          
-            try {
-              const response = await axios.get('https://nekos.life/api/v2/img/neko');
+
+              const response = await axios.get('https://api.waifu.pics/sfw/loli');
               const data = response.data;
           
               if (data.url) {
                 const imageUrl = data.url;
-                const buffer = await getBuffer(imageUrl);
           
-                res.writeHead(200, {
-                  'Content-Type': 'image/jpeg', // You might need to change this to 'image/png' depending on the image type
-                  'Content-Length': buffer.length
-                });
-                res.end(buffer);
-              } else {
-                res.json(loghandler.maintenance);
+                // Respondemos con un objeto JSON con las propiedades solicitadas
+                res.json({ status: true, owners: `${creator}`, url: imageUrl });
               }
-            } catch (e) {
-              console.error(`Error: ${e.message}`);
-              res.json(loghandler.error);
+            } catch  (e) {
+                res.json({ status: true, owners: `${creator}`, smg: `Error: ${e}` });
             }
           });
 
           router.get('/anime/neko', async (req, res) => {
             const apikeyInput = req.query.apikey;
           
+            try {
             if (!apikeyInput) return res.json(loghandler.notparam);
             if (apikeyInput !== 'Limoncio') return res.json(loghandler.invalidKey);
-          
-            try {
+
               const response = await axios.get('https://api.waifu.pics/sfw/neko');
               const data = response.data;
           
               if (data.url) {
                 const imageUrl = data.url;
-                const buffer = await getBuffer(imageUrl);
           
-                res.writeHead(200, {
-                  'Content-Type': 'image/jpeg', // You might need to change this to 'image/png' depending on the image type
-                  'Content-Length': buffer.length
-                });
-                res.end(buffer);
-              } else {
-                res.json(loghandler.maintenance);
+                // Respondemos con un objeto JSON con las propiedades solicitadas
+                res.json({ status: true, owners: `${creator}`, url: imageUrl });
               }
-            } catch (e) {
-              console.error(`Error: ${e.message}`);
-              res.json(loghandler.error);
+            } catch  (e) {
+                res.json({ status: true, owners: `${creator}`, smg: `Error: ${e}` });
             }
           });
 
           router.get('/anime/megumin', async (req, res) => {
             const apikeyInput = req.query.apikey;
           
+            try {
             if (!apikeyInput) return res.json(loghandler.notparam);
             if (apikeyInput !== 'Limoncio') return res.json(loghandler.invalidKey);
-          
-            try {
+
               const response = await axios.get('https://api.waifu.pics/sfw/megumin');
               const data = response.data;
           
               if (data.url) {
                 const imageUrl = data.url;
-                const buffer = await getBuffer(imageUrl);
           
-                res.writeHead(200, {
-                  'Content-Type': 'image/jpeg', // You might need to change this to 'image/png' depending on the image type
-                  'Content-Length': buffer.length
-                });
-                res.end(buffer);
-              } else {
-                res.json(loghandler.maintenance);
+                // Respondemos con un objeto JSON con las propiedades solicitadas
+                res.json({ status: true, owners: `${creator}`, url: imageUrl });
               }
-            } catch (e) {
-              console.error(`Error: ${e.message}`);
-              res.json(loghandler.error);
+            } catch  (e) {
+                res.json({ status: true, owners: `${creator}`, smg: `Error: ${e}` });
             }
-          });
-
+          }); 
+          
+          
           router.get('/anime/shinobu', async (req, res) => {
             const apikeyInput = req.query.apikey;
           
+            try {
             if (!apikeyInput) return res.json(loghandler.notparam);
             if (apikeyInput !== 'Limoncio') return res.json(loghandler.invalidKey);
-          
-            try {
-              const response = await axios.get('https://api.waifu.pics/sfw/shinobu');
+
+              const response = await axios.get('https://api.waifu.pics/sfw/megumin');
               const data = response.data;
           
               if (data.url) {
                 const imageUrl = data.url;
-                const buffer = await getBuffer(imageUrl);
           
-                res.writeHead(200, {
-                  'Content-Type': 'image/jpeg', // You might need to change this to 'image/png' depending on the image type
-                  'Content-Length': buffer.length
-                });
-                res.end(buffer);
-              } else {
-                res.json(loghandler.maintenance);
+                // Respondemos con un objeto JSON con las propiedades solicitadas
+                res.json({ status: true, owners: `${creator}`, url: imageUrl });
               }
-            } catch (e) {
-              console.error(`Error: ${e.message}`);
-              res.json(loghandler.error);
+            } catch  (e) {
+                res.json({ status: true, owners: `${creator}`, smg: `Error: ${e}` });
             }
-          });
+          }); 
+        // ANIME END //
 
         // DESCARGAS //
         router.get('/yutub/video', async (req, res, next) => {
@@ -686,7 +407,7 @@ var len = 15
                 
         if(!apikeyInput) return res.json(loghandler.notparam)
         if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-        if (!url) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter url"})
+        if (!url) return res.json({ status : false, creator : `${creator}`, smg : "masukan parameter url"})
     
            fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/ytv?url=${url}`))
             .then(response => response.json())
@@ -709,7 +430,7 @@ var len = 15
                 
         if(!apikeyInput) return res.json(loghandler.notparam)
         if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-        if (!url) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter url"})
+        if (!url) return res.json({ status : false, creator : `${creator}`, smg : "masukan parameter url"})
     
            fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/yta?url=${url}`))
             .then(response => response.json())
@@ -732,7 +453,7 @@ var len = 15
                 
         if(!apikeyInput) return res.json(loghandler.notparam)
         if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-        if (!username) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter username"})
+        if (!username) return res.json({ status : false, creator : `${creator}`, smg : "masukan parameter username"})
     
            fetch(encodeURI(`https://python-api-zhirrr.herokuapp.com/api/stalk?username=${username}`))
             .then(response => response.json())
@@ -754,7 +475,7 @@ var len = 15
                 
         if(!apikeyInput) return res.json(loghandler.notparam)
         if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-        if (!username) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter username"})
+        if (!username) return res.json({ status : false, creator : `${creator}`, smg : "masukan parameter username"})
     
            fetch(encodeURI(`https://github-api-zhirrr.vercel.app/api/detailuser?q=${username}`))
             .then(response => response.json())
@@ -775,7 +496,7 @@ var len = 15
                 
         if(!apikeyInput) return res.json(loghandler.notparam)
         if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-        if (!username) return res.json({ status : false, creator : `${creator}`, message : "masukan nama repository yang ingin kamu cari"})
+        if (!username) return res.json({ status : false, creator : `${creator}`, smg : "masukan nama repository yang ingin kamu cari"})
     
            fetch(encodeURI(`https://github-api-zhirrr.vercel.app/api/searchrepo?q=${username}`))
             .then(response => response.json())
@@ -799,7 +520,7 @@ var len = 15
                 
         if(!apikeyInput) return res.json(loghandler.notparam)
         if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-        if (!video) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter video"})
+        if (!video) return res.json({ status : false, creator : `${creator}`, smg : "masukan parameter video"})
     
            fetch(encodeURI(`https://yutub-api-zaahirr.herokuapp.com/search?q=${video}`))
             .then(response => response.json())
@@ -841,7 +562,7 @@ var len = 15
                     
             if(!apikeyInput) return res.json(loghandler.notparam)
             if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-            if (!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
+            if (!text) return res.json({ status : false, creator : `${creator}`, smg : "masukan parameter text"})
         
                fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/text3d-2?text=${text}`))
                 .then(response => response.json())
@@ -864,7 +585,7 @@ var len = 15
                     
             if(!apikeyInput) return res.json(loghandler.notparam)
             if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-            if (!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
+            if (!text) return res.json({ status : false, creator : `${creator}`, smg : "masukan parameter text"})
         
                fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/text3d-3?text=${text}`))
                 .then(response => response.json())
@@ -887,7 +608,7 @@ var len = 15
                     
             if(!apikeyInput) return res.json(loghandler.notparam)
             if(apikeyInput != 'Limoncio') return res.json(loghandler.invalidKey)
-            if (!text) return res.json({ status : false, creator : `${creator}`, message : "masukan parameter text"})
+            if (!text) return res.json({ status : false, creator : `${creator}`, smg : "masukan parameter text"})
         
                fetch(encodeURI(`https://textmaker-api-zahirr.herokuapp.com/api/text3d-4?text=${text}`))
                 .then(response => response.json())

@@ -2,146 +2,151 @@
 <html ng-app="adminDashboardApp">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Admin Dashboard for monitoring and managing various metrics.">
+  <meta name="keywords" content="admin, dashboard, metrics, management, analytics">
+  <meta name="author" content="Company, Marru">
+  <meta property="og:title" content="Admin Dashboard - DashDarkX">
+  <meta property="og:description" content="Admin Dashboard for monitoring and managing various metrics.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://example.com">
+  <meta property="og:image" content="https://example.com/image.jpg">
   <title>Admin Dashboard - DashDarkX</title>
-  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css"> <!-- Boxicons para íconos -->
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css">
   <link href="render/bootstrap5/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="css/index.css"/>">
+  <link rel="stylesheet" type="text/css" href="css/index.css"/>
   <style>
-    /* Estilos para los boxes */
     .card {
-      background-color: #6c757d; /* Color de fondo de las cajas */
       border: none;
+      box-shadow:  -8px 12px 18px 0 rgba(0, 0, 0, 0.1);
+      margin-bottom: 2.2rem;
+      background-color: #6c757d;
+    }
+
+    .card .card-body {
+      color: #fff;
+	    font-weight: 900;
+	    font-size: 16px;
       border-radius: 8px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      color: #fff; /* Color del texto */
     }
-    
-    .card-body {
-      padding: 20px;
-    }
-    
+
     .icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 15px; /* Espacio entre el icono y el texto */
+      margin-bottom: 15px;
     }
-    
     .icon i {
-      font-size: 24px; /* Tamaño más pequeño para el ícono */
-      color: #ff69b4; /* Color rosa para el ícono */
-      margin-right: 10px; /* Espacio a la derecha del ícono */
+      font-size: 24px;
+      color: #ff69b4;
+      margin-right: 10px;
     }
-    
     .icon-text {
-      font-size: 14px; /* Tamaño del texto dentro del span */
-      color: rgba(255, 255, 255, 0.7); /* Color gris con poco de blanco para el texto */
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.7);
     }
-    
     .text-center {
       text-align: center;
     }
-    
     h3 {
-      font-size: 28px; /* Tamaño del número */
+      font-size: 28px;
       font-weight: bold;
-      margin-bottom: 8px; /* Espacio entre el número y el párrafo */
+      margin-bottom: 8px;
     }
-    
     p {
-      font-size: 14px; /* Tamaño del párrafo */
+      font-size: 14px;
       opacity: 0.8;
-      margin-bottom: 0; /* Elimina el espacio debajo del párrafo */
+      margin-bottom: 0;
     }
   </style>  
 </head>
 <body ng-controller="DashboardController">
 
   <!-- Menú horizontal -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <a class="navbar-brand" href="#">hola</a>
-    <button class="btn btn-primary" type="button" ng-click="toggleSidebar()">
-      <i class='bx bx-menu-alt-left'></i>
-    </button>
-    <form class="form-inline ms-auto">
-      <div class="input-group">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" ng-show="isSearchVisible">
-        <button class="btn btn-secondary" type="button" ng-click="toggleSearch()">
-          <i class='bx bx-search'></i>
-        </button>
-      </div>
-    </form>
-  </nav>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <a class="navbar-brand" href="#">Admin Dashboard</a>
+      <button class="btn btn-primary" type="button" ng-click="toggleSidebar()" aria-label="Toggle sidebar">
+        <i class='bx bx-menu-alt-left' title="Toggle sidebar"></i>
+      </button>
+      <form class="form-inline ms-auto">
+        <div class="input-group">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" ng-show="isSearchVisible">
+          <button class="btn btn-secondary" type="button" ng-click="toggleSearch()" aria-label="Toggle search">
+            <i class='bx bx-search' title="Search"></i>
+          </button>
+        </div>
+      </form>
+    </nav>
+  </header>
 
   <!-- Menú vertical -->
-  <nav class="sidebar" ng-class="{ 'expanded': isSidebarExpanded }">
+  <aside class="sidebar" ng-class="{ 'expanded': isSidebarExpanded }">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link active" href="#">
-          <i class="bx bx-tachometer"></i>
+        <a class="nav-link active" href="#" aria-label="Dashboard">
+          <i class="bx bx-tachometer" title="Dashboard"></i>
           <span class="nav-link-text">Dashboard</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" ng-click="toggleAnimeMenu()">
-          <i class="bx bx-line-chart"></i>
+        <a class="nav-link" href="#" ng-click="toggleAnimeMenu()" aria-label="Anime">
+          <i class="bx bx-line-chart" title="Anime"></i>
           <span class="nav-link-text">Anime</span>
         </a>
         <ul class="nav flex-column ms-3" ng-if="isSidebarExpanded" ng-class="{ 'collapsed': !isAnimeMenuVisible, 'expanded': isAnimeMenuVisible }">
           <li class="nav-item">
-            <a class="nav-link" href="api/anime/waifu?apikey=Limoncio" target="_blank">Waifu</a>
+            <a class="nav-link" href="api/anime/waifu?apikey=Limoncio" target="_blank" aria-label="Waifu">Waifu</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="api/anime/loli?apikey=Limoncio" target="_blank">Loli</a>
+            <a class="nav-link" href="api/anime/loli?apikey=Limoncio" target="_blank" aria-label="Loli">Loli</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="api/anime/neko?apikey=Limoncio" target="_blank">Neko</a>
+            <a class="nav-link" href="api/anime/neko?apikey=Limoncio" target="_blank" aria-label="Neko">Neko</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="api/anime/megumin?apikey=Limoncio" target="_blank">Megumin</a>
+            <a class="nav-link" href="api/anime/megumin?apikey=Limoncio" target="_blank" aria-label="Megumin">Megumin</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="api/anime/Shinobu?apikey=Limoncio" target="_blank">Shinobu</a>
+            <a class="nav-link" href="api/anime/Shinobu?apikey=Limoncio" target="_blank" aria-label="Shinobu">Shinobu</a>
           </li>
         </ul>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="bx bx-file"></i>
+        <a class="nav-link" href="#" aria-label="NSFW">
+          <i class="bx bx-file" title="NSFW"></i>
           <span class="nav-link-text">NSFW</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="bx bx-cog"></i>
+        <a class="nav-link" href="#" aria-label="Busqueda">
+          <i class="bx bx-cog" title="Busqueda"></i>
           <span class="nav-link-text">BUSQUEDA</span>
         </a>
       </li>
     </ul>
-  </nav>
+  </aside>
 
   <main class="main-content" id="mainContent" ng-class="{ 'expanded': isSidebarExpanded }">
-    <article class="container mt-5 pt-5">
+    <section class="container mt-5 pt-5">
       <header class="row">
-        <!-- Primer Box -->
         <div class="col-lg-3 col-md-6">
-          <div class="card">
-            <ul class="card-body d-flex flex-column align-items-center">
-              <li class="icon mb-3">
-                <i class="bx bx-line-chart" style="font-size: 24px;"></i> <!-- Tamaño más pequeño para el ícono -->
-                <p class="icon-text"><span>Analytics Overview</span></p>
-              </li>
+          <article class="card">
+            <div class="card-body d-flex flex-column align-items-center">
+              <div class="icon mb-3">
+                <i class="bx bx-line-chart" style="font-size: 24px;" title="Analytics Overview"></i>
+                <p class="icon-text"><span>Total Request</span></p>
+              </div>
               <div class="text-center">
-                <h3 class="mb-1">1350</h3>
+                <h2 class="mb-1">1350</h2>
                 <p>Visitors this month</p>
               </div>
-            </ul>
-          </div>
+            </div>
+          </article>
         </div>
         <!-- Otros boxes -->
       </header>
-    </article>
+    </section>
   </main>
   
   <!-- Footer -->
@@ -156,35 +161,27 @@
   <script>
     var app = angular.module('adminDashboardApp', []);
     app.controller('DashboardController', function($scope) {
-  $scope.isSidebarExpanded = false;
-  $scope.isSearchVisible = false; // Inicialmente oculto
-  $scope.isAnimeMenuVisible = false;
-
-  $scope.toggleSidebar = function() {
-    $scope.isSidebarExpanded = !$scope.isSidebarExpanded;
-    if (!$scope.isSidebarExpanded) {
+      $scope.isSidebarExpanded = false;
+      $scope.isSearchVisible = false;
       $scope.isAnimeMenuVisible = false;
-    }
-  };
 
-  $scope.toggleSearch = function() {
-    $scope.isSearchVisible = !$scope.isSearchVisible; // Cambia la visibilidad del input de búsqueda
-  };
+      $scope.toggleSidebar = function() {
+        $scope.isSidebarExpanded = !$scope.isSidebarExpanded;
+        if (!$scope.isSidebarExpanded) {
+          $scope.isAnimeMenuVisible = false;
+        }
+      };
 
-  $scope.toggleAnimeMenu = function() {
-    if ($scope.isSidebarExpanded) {
-      $scope.isAnimeMenuVisible = !$scope.isAnimeMenuVisible;
-    }
-  };
-});
+      $scope.toggleSearch = function() {
+        $scope.isSearchVisible = !$scope.isSearchVisible;
+      };
 
+      $scope.toggleAnimeMenu = function() {
+        if ($scope.isSidebarExpanded) {
+          $scope.isAnimeMenuVisible = !$scope.isAnimeMenuVisible;
+        }
+      };
+    });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
