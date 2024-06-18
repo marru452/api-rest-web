@@ -17,47 +17,59 @@
   <link rel="stylesheet" type="text/css" href="css/index.css"/>
   <style>
     .card {
-      border: none;
-      box-shadow:  -8px 12px 18px 0 rgba(0, 0, 0, 0.1);
-      margin-bottom: 2.2rem;
-      background-color: #6c757d;
-    }
+  border: none;
+  box-shadow: -8px 12px 18px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.2rem;
+  background-color: #6c757d;
+  width: 250px; /* Ancho ajustado */
+  height: 100px; /* Altura ajustada */
+  transition: transform 0.3s ease; /* Transición suave para transformaciones */
+  display: flex;
+  align-items: center; /* Centra verticalmente */
+  padding: 10px; /* Espaciado interno */
+}
 
-    .card .card-body {
-      color: #fff;
-	    font-weight: 900;
-	    font-size: 16px;
-      border-radius: 8px;
-    }
+.card .card-body {
+  color: #fff;
+  font-weight: 900;
+  font-size: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  text-align: left; /* Alinea el texto a la izquierda */
+  padding: 0; /* Ajuste del padding para el contenido */
+  width: 100%; /* Asegura que el card-body ocupe todo el ancho de la tarjeta */
+}
 
-    .icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 15px;
-    }
-    .icon i {
-      font-size: 24px;
-      color: #ff69b4;
-      margin-right: 10px;
-    }
-    .icon-text {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
-    }
-    .text-center {
-      text-align: center;
-    }
-    h3 {
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-    p {
-      font-size: 14px;
-      opacity: 0.8;
-      margin-bottom: 0;
-    }
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 50px; /* Espacio entre el ícono y el texto */
+}
+
+.icon i {
+  font-size: 24px;
+  color: #ff69b4;
+}
+
+.text-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.text-content h5 {
+  font-size: 18px; /* Ajuste del tamaño de la fuente */
+  font-weight: bold;
+  margin: 0; /* Sin margen inferior */
+}
+
+.text-content p {
+  font-size: 14px;
+  opacity: 0.8;
+  margin: 0; /* Sin margen inferior */
+}
   </style>  
 </head>
 <body ng-controller="DashboardController">
@@ -80,37 +92,38 @@
     </nav>
   </header>
 
-  <!-- Menú vertical -->
-  <aside class="sidebar" ng-class="{ 'expanded': isSidebarExpanded }">
+   <!-- Menú vertical -->
+   <aside class="sidebar" ng-class="{ 'expanded': isSidebarExpanded }">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link active" href="#" aria-label="Dashboard">
+        <a class="nav-link active" href="#" aria-label="Dashboard" ng-class="{ 'expanded': isSidebarExpanded }">
           <i class="bx bx-tachometer" title="Dashboard"></i>
           <span class="nav-link-text">Dashboard</span>
         </a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" href="#" ng-click="toggleAnimeMenu()" aria-label="Anime">
+        <a class="nav-link" href="#" ng-click="toggleAnimeMenu()" aria-label="Anime" aria-expanded="{{isAnimeMenuVisible}}">
           <i class="bx bx-line-chart" title="Anime"></i>
           <span class="nav-link-text">Anime</span>
         </a>
-        <ul class="nav flex-column ms-3" ng-if="isSidebarExpanded" ng-class="{ 'collapsed': !isAnimeMenuVisible, 'expanded': isAnimeMenuVisible }">
-          <li class="nav-item">
+        <div class="submenu ms-3" ng-class="{ 'expanded': isAnimeMenuVisible }">
+          <div class="nav-item">
             <a class="nav-link" href="api/anime/waifu?apikey=Limoncio" target="_blank" aria-label="Waifu">Waifu</a>
-          </li>
-          <li class="nav-item">
+          </div>
+          <div class="nav-item">
             <a class="nav-link" href="api/anime/loli?apikey=Limoncio" target="_blank" aria-label="Loli">Loli</a>
-          </li>
-          <li class="nav-item">
+          </div>
+          <div class="nav-item">
             <a class="nav-link" href="api/anime/neko?apikey=Limoncio" target="_blank" aria-label="Neko">Neko</a>
-          </li>
-          <li class="nav-item">
+          </div>
+          <div class="nav-item">
             <a class="nav-link" href="api/anime/megumin?apikey=Limoncio" target="_blank" aria-label="Megumin">Megumin</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="api/anime/Shinobu?apikey=Limoncio" target="_blank" aria-label="Shinobu">Shinobu</a>
-          </li>
-        </ul>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link" href="api/anime/shinobu?apikey=Limoncio" target="_blank" aria-label="Shinobu">Shinobu</a>
+          </div>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#" aria-label="NSFW">
@@ -130,24 +143,25 @@
   <main class="main-content" id="mainContent" ng-class="{ 'expanded': isSidebarExpanded }">
     <section class="container mt-5 pt-5">
       <header class="row">
-        <div class="col-lg-3 col-md-6">
+        <div class="col-xl-3 col-md-6 mb-4">
           <article class="card">
-            <div class="card-body d-flex flex-column align-items-center">
-              <div class="icon mb-3">
-                <i class="bx bx-line-chart" style="font-size: 24px;" title="Analytics Overview"></i>
-                <p class="icon-text"><span>Total Request</span></p>
+            <div class="card-body d-flex align-items-center">
+              <div class="icon">
+                <i class="bx bx-line-chart" style="font-size: 24px; color: #ff69b4;"></i>
               </div>
-              <div class="text-center">
-                <h2 class="mb-1">1350</h2>
-                <p>Visitors this month</p>
+              <div class="text-content">
+                <h5 class="mb-1">1350</h5>
+                <p class="mb-0">Visitors this month</p>
               </div>
             </div>
           </article>
+          
         </div>
         <!-- Otros boxes -->
       </header>
     </section>
   </main>
+  
   
   <!-- Footer -->
   <footer class="footer">
