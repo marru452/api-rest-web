@@ -98,14 +98,14 @@
     <aside class="navbar-nav sidebar" ng-class="{ 'expanded': isSidebarExpanded }">
       <div class="sidebar-container-fluid">
         <div class="sidebar-row">
-          <div class="col-xs-12 col-sm-6 col-md-8">
+          <ul class="col-xs-12 col-sm-6 col-md-8">
             <!-- Icono y texto arriba del Dashboard -->
-            <a class="nav-link active" aria-label="logo" ng-class="{ 'expanded': isSidebarExpanded }">
-                <i class="bx bx-home" title="Dashboard Icon"></i>
-                <span class="sidebar-brand-text mx-3">Alphabot - Api</span>
-            </a>
+            <li class="navbar nav-logo active" aria-label="Alphabot - Api" ng-class="{ 'expanded': isSidebarExpanded }">
+              <h2 class="mb-0" style="font-weight: 700;">Alphabot -</h2>
+              <span style="margin-left: 5px;">Api</span>
+            </li>           
             <!-- Lista de elementos del menú -->
-            <ul class="nav flex-column">
+            <div class="nav flex-column">
               <li class="nav-item">
                 <a class="nav-link active" href="#" aria-label="Dashboard" ng-class="{ 'expanded': isSidebarExpanded }">
                   <i class="bx bx-tachometer" title="Dashboard"></i>
@@ -147,8 +147,8 @@
                   <span class="nav-link-text">BUSQUEDA</span>
                 </a>
               </li>
-            </ul>
-          </div>
+            </div>
+          </ul>
         </div>
       </div>
     </aside>    
