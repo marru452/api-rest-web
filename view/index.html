@@ -78,32 +78,31 @@
       <header>
         <nav class="navbar navbar-expand-lg navbar-dark mb-4 static-top">
           <div class="container-fluid">
-            <ul class="navbar-brand" href="#">Admin Dashboard</ul>
-            <button class="btn btn-primary" type="button" ng-click="toggleSidebar()" aria-label="Toggle sidebar">
+            <button class="btn btn-primary ms-auto rounded-circle" type="button" ng-click="toggleSidebar()" aria-label="Toggle sidebar">
               <i class='bx bx-menu-alt-left' title="Toggle sidebar"></i>
             </button>
-            <form class="form-inline ms-auto search-form">
-              <div class="input-group">
-                <input class="form-control me-2" type="text" placeholder="Que quieres buscar" aria-label="Search" ng-show="isSearchVisible">
-                <button class="btn btn-secondary" type="button" ng-click="toggleSearch()" aria-label="Toggle search">
-                  <i class='bx bx-search' title="Search"></i>
-                </button>
-              </div>
-            </form>
+            <ul class="navbar-nav mr-auto">
+              <form class="form-inline search-form">
+                <div class="input-group">
+                  <input class="form-control me-2" type="text" placeholder="Que quieres buscar" aria-label="Search" ng-show="isSearchVisible">
+                  <button class="btn btn-secondary" type="button" ng-click="toggleSearch()" aria-label="Toggle search">
+                    <i class='bx bx-search' title="Search"></i>
+                  </button>
+                </div>
+              </form>
+            </ul>
           </div>
         </nav>
       </header>           
     <!-- Menú vertical -->
-    <aside class="sidebar" ng-class="{ 'expanded': isSidebarExpanded }">
+    <aside class="navbar-nav sidebar" ng-class="{ 'expanded': isSidebarExpanded }">
       <div class="sidebar-container-fluid">
         <div class="sidebar-row">
           <div class="col-xs-12 col-sm-6 col-md-8">
             <!-- Icono y texto arriba del Dashboard -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center">
-              <div class="sidebar-brand-icon">
+            <a class="nav-link active" aria-label="logo" ng-class="{ 'expanded': isSidebarExpanded }">
                 <i class="bx bx-home" title="Dashboard Icon"></i>
-              </div>
-              <div class="sidebar-brand-text mx-3">Alphabot - Api</div>
+                <span class="sidebar-brand-text mx-3">Alphabot - Api</span>
             </a>
             <!-- Lista de elementos del menú -->
             <ul class="nav flex-column">

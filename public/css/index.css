@@ -78,22 +78,12 @@ body {
   background-color: #1c2538;
   color: #cfd8dc;
   padding-left: 0;
-  display: flex;
-  align-items: center; /* Center vertically */
-  justify-content: space-between; /* Distribute space between items */
 }
 
 .navbar .input-group {
   position: relative;
   margin-right: 10px; /* Ajusta según tu diseño */
 }
-
-/* Remove .navbar-brand as it is no longer needed */
-/* .navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-} */
 
 .navbar .form-control[type="search"].ng-show {
   display: block; /* Mostrar cuando isSearchVisible es true */
@@ -165,6 +155,18 @@ body {
   margin-left: -15px;
 }
 
+.sidebar-brand { 
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+}
+
+.sidebar-brand .sidebar-brand-text { 
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+}
+
 .sidebar-row .col-xs-12 {
   flex: 0 0 100%;
   max-width: 100%;
@@ -194,6 +196,10 @@ body {
 }
 
 /* Icono y texto arriba del elemento Dashboard */
+.sidebar .nav-item:first-child {
+  margin-bottom: 20px; /* Espacio entre el ícono y el siguiente ítem del menú */
+}
+
 .sidebar .icon-text-wrapper {
   display: flex;
   align-items: center;
@@ -206,5 +212,10 @@ body {
 }
 
 .sidebar .icon-text-wrapper .nav-link-text {
-  font-weight: bold;
+  display: none;
+}
+
+.sidebar.expanded .icon-text-wrapper .nav-link-text {
+  display: inline;
+  margin-left: 10px;
 }
