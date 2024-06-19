@@ -74,72 +74,86 @@
 </head>
 <body ng-controller="DashboardController">
 
-  <!-- Menú horizontal -->
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-      <a class="navbar-brand" href="#">Admin Dashboard</a>
-      <button class="btn btn-primary" type="button" ng-click="toggleSidebar()" aria-label="Toggle sidebar">
-        <i class='bx bx-menu-alt-left' title="Toggle sidebar"></i>
-      </button>
-      <form class="form-inline ms-auto">
-        <div class="input-group">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" ng-show="isSearchVisible">
-          <button class="btn btn-secondary" type="button" ng-click="toggleSearch()" aria-label="Toggle search">
-            <i class='bx bx-search' title="Search"></i>
-          </button>
+      <!-- Menú horizontal -->
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-dark mb-4 static-top">
+          <div class="container-fluid">
+            <ul class="navbar-brand" href="#">Admin Dashboard</ul>
+            <button class="btn btn-primary" type="button" ng-click="toggleSidebar()" aria-label="Toggle sidebar">
+              <i class='bx bx-menu-alt-left' title="Toggle sidebar"></i>
+            </button>
+            <form class="form-inline ms-auto search-form">
+              <div class="input-group">
+                <input class="form-control me-2" type="text" placeholder="Que quieres buscar" aria-label="Search" ng-show="isSearchVisible">
+                <button class="btn btn-secondary" type="button" ng-click="toggleSearch()" aria-label="Toggle search">
+                  <i class='bx bx-search' title="Search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+        </nav>
+      </header>           
+    <!-- Menú vertical -->
+    <aside class="sidebar" ng-class="{ 'expanded': isSidebarExpanded }">
+      <div class="sidebar-container-fluid">
+        <div class="sidebar-row">
+          <div class="col-xs-12 col-sm-6 col-md-8">
+            <!-- Icono y texto arriba del Dashboard -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center">
+              <div class="sidebar-brand-icon">
+                <i class="bx bx-home" title="Dashboard Icon"></i>
+              </div>
+              <div class="sidebar-brand-text mx-3">Alphabot - Api</div>
+            </a>
+            <!-- Lista de elementos del menú -->
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="#" aria-label="Dashboard" ng-class="{ 'expanded': isSidebarExpanded }">
+                  <i class="bx bx-tachometer" title="Dashboard"></i>
+                  <span class="nav-link-text">Dashboard</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" ng-click="toggleAnimeMenu()" aria-label="Anime" aria-expanded="{{isAnimeMenuVisible}}">
+                  <i class="bx bx-line-chart" title="Anime"></i>
+                  <span class="nav-link-text">Anime</span>
+                </a>
+                <div class="submenu ms-3" ng-class="{ 'expanded': isAnimeMenuVisible }">
+                  <div class="nav-item">
+                    <a class="nav-link" href="api/anime/waifu?apikey=Limoncio" target="_blank" aria-label="Waifu">Waifu</a>
+                  </div>
+                  <div class="nav-item">
+                    <a class="nav-link" href="api/anime/loli?apikey=Limoncio" target="_blank" aria-label="Loli">Loli</a>
+                  </div>
+                  <div class="nav-item">
+                    <a class="nav-link" href="api/anime/neko?apikey=Limoncio" target="_blank" aria-label="Neko">Neko</a>
+                  </div>
+                  <div class="nav-item">
+                    <a class="nav-link" href="api/anime/megumin?apikey=Limoncio" target="_blank" aria-label="Megumin">Megumin</a>
+                  </div>
+                  <div class="nav-item">
+                    <a class="nav-link" href="api/anime/shinobu?apikey=Limoncio" target="_blank" aria-label="Shinobu">Shinobu</a>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" aria-label="NSFW">
+                  <i class="bx bx-file" title="NSFW"></i>
+                  <span class="nav-link-text">NSFW</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" aria-label="Busqueda">
+                  <i class="bx bx-cog" title="Busqueda"></i>
+                  <span class="nav-link-text">BUSQUEDA</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </form>
-    </nav>
-  </header>
-
-   <!-- Menú vertical -->
-   <aside class="sidebar" ng-class="{ 'expanded': isSidebarExpanded }">
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link active" href="#" aria-label="Dashboard" ng-class="{ 'expanded': isSidebarExpanded }">
-          <i class="bx bx-tachometer" title="Dashboard"></i>
-          <span class="nav-link-text">Dashboard</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="#" ng-click="toggleAnimeMenu()" aria-label="Anime" aria-expanded="{{isAnimeMenuVisible}}">
-          <i class="bx bx-line-chart" title="Anime"></i>
-          <span class="nav-link-text">Anime</span>
-        </a>
-        <div class="submenu ms-3" ng-class="{ 'expanded': isAnimeMenuVisible }">
-          <div class="nav-item">
-            <a class="nav-link" href="api/anime/waifu?apikey=Limoncio" target="_blank" aria-label="Waifu">Waifu</a>
-          </div>
-          <div class="nav-item">
-            <a class="nav-link" href="api/anime/loli?apikey=Limoncio" target="_blank" aria-label="Loli">Loli</a>
-          </div>
-          <div class="nav-item">
-            <a class="nav-link" href="api/anime/neko?apikey=Limoncio" target="_blank" aria-label="Neko">Neko</a>
-          </div>
-          <div class="nav-item">
-            <a class="nav-link" href="api/anime/megumin?apikey=Limoncio" target="_blank" aria-label="Megumin">Megumin</a>
-          </div>
-          <div class="nav-item">
-            <a class="nav-link" href="api/anime/shinobu?apikey=Limoncio" target="_blank" aria-label="Shinobu">Shinobu</a>
-          </div>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" aria-label="NSFW">
-          <i class="bx bx-file" title="NSFW"></i>
-          <span class="nav-link-text">NSFW</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" aria-label="Busqueda">
-          <i class="bx bx-cog" title="Busqueda"></i>
-          <span class="nav-link-text">BUSQUEDA</span>
-        </a>
-      </li>
-    </ul>
-  </aside>
-
+      </div>
+    </aside>    
+    
   <main class="main-content" id="mainContent" ng-class="{ 'expanded': isSidebarExpanded }">
     <section class="container mt-5 pt-5">
       <header class="row">
@@ -161,7 +175,6 @@
       </header>
     </section>
   </main>
-  
   
   <!-- Footer -->
   <footer class="footer">

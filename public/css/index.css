@@ -1,3 +1,4 @@
+/* Global styles */
 body {
   overflow-x: hidden;
   font-family: 'Roboto', sans-serif;
@@ -6,6 +7,7 @@ body {
   margin-bottom: 40px; /* Ajuste para el footer */
 }
 
+/* Sidebar styles */
 .sidebar {
   position: fixed;
   top: 0;
@@ -37,7 +39,8 @@ body {
   transition: color 0.3s ease;
 }
 
-.sidebar .nav-link:hover .bx, .sidebar .nav-link.active .bx {
+.sidebar .nav-link:hover .bx,
+.sidebar .nav-link.active .bx {
   color: #ff4081;
 }
 
@@ -60,28 +63,7 @@ body {
   opacity: 1;
 }
 
-@media (min-width: 600px) {
-  .sidebar {
-    width: 80px;
-    z-index: 2; /* Asegura que el sidebar tenga un z-index más alto para estar por encima del contenido */
-  }
-  .sidebar.expanded {
-    width: 250px;
-  }
-  .main-content {
-    margin-left: 80px; /* Ajuste para dejar espacio al sidebar colapsado */
-    transition: margin-left 0.5s ease; /* Agrega transición suave al margin-left */
-    z-index: 1; /* Asegura que el contenido tenga un z-index más bajo que el sidebar cuando este está colapsado */
-    position: relative; /* Asegura que el z-index funcione correctamente */
-  }
-  .main-content.expanded {
-    margin-left: 250px; /* Ajuste para dejar espacio al sidebar expandido */
-  }
-  .nav-link .nav-link-text {
-    display: none; /* Ocultar texto de los enlaces en el sidebar */
-  }
-}
-
+/* Main content styles */
 .main-content {
   margin-left: 76px; /* Ancho por defecto, colapsado, con espacio extra de 16px */
   transition: margin-left 0.5s ease; /* Transición suave para el margen */
@@ -91,10 +73,14 @@ body {
   margin-left: 250px; /* Ancho cuando el sidebar se expande, con espacio extra de 16px */
 }
 
+/* Navbar styles */
 .navbar {
   background-color: #1c2538;
   color: #cfd8dc;
   padding-left: 0;
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: space-between; /* Distribute space between items */
 }
 
 .navbar .input-group {
@@ -102,11 +88,12 @@ body {
   margin-right: 10px; /* Ajusta según tu diseño */
 }
 
-.navbar-brand {
+/* Remove .navbar-brand as it is no longer needed */
+/* .navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
   padding: 0.5rem 1rem;
-}
+} */
 
 .navbar .form-control[type="search"].ng-show {
   display: block; /* Mostrar cuando isSearchVisible es true */
@@ -152,6 +139,7 @@ body {
   font-size: 1.5rem;
 }
 
+/* Footer styles */
 .footer {
   position: fixed;
   bottom: 0;
@@ -162,7 +150,37 @@ body {
   padding: 10px 0;
 }
 
-/* Estilos para manejar la visibilidad de los submenús */
+/* Sidebar container and row styles */
+.sidebar-container-fluid {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sidebar-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.sidebar-row .col-xs-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.sidebar-row .col-sm-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.sidebar-row .col-md-8 {
+  flex: 0 0 66.66667%;
+  max-width: 66.66667%;
+}
+
+/* Submenu styles */
 .nav-item .submenu {
   max-height: 0;
   overflow: hidden;
@@ -175,11 +193,18 @@ body {
   display: block; /* Mostrar cuando está expandido */
 }
 
-.sidebar .nav-link-text {
-  display: none;
-  margin-left: 10px;
+/* Icono y texto arriba del elemento Dashboard */
+.sidebar .icon-text-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
 }
 
-.sidebar.expanded .nav-link-text {
-  display: inline; /* Mostrar texto siempre cuando el sidebar está expandido */
+.sidebar .icon-text-wrapper .bx {
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+.sidebar .icon-text-wrapper .nav-link-text {
+  font-weight: bold;
 }
